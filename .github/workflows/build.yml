@@ -1,5 +1,9 @@
-name: Release
+name: EGlance Build
 
+# Only included into other workflows
+on:
+  workflow_call:
+  
 on:
   push:
     tags:
@@ -37,7 +41,14 @@ jobs:
         environment: ${{ fromJSON(needs.get_default_envs.outputs.environments) }}
     steps:
     - uses: actions/checkout@v2
-
+    - name: Cache PlatformIO
+      uses: actions/cache@v4
+      with:
+        path: |
+              ~/.platformio/.cache
+              ~/.buildcache
+        key: pio-${{ runner.os }}-${{ matrix.environment }}-${{ hashFiles('platformio.ini', 'extra_script.py') }}
+        restore-keys: pio-${{ runner.os }}-${{ matrix.environment }}-${{ hashFiles('platformio.ini', 'extra_script.py') }}
     - name: Set up Python
       uses: actions/setup-python@v1
 
