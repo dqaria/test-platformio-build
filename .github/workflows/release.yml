@@ -26,7 +26,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           body: hello world
-          # draft: True
+          draft: True
           files: |
             *.bin
-            *.bin.gz
