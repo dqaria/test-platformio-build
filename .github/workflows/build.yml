@@ -41,6 +41,7 @@ jobs:
           path: |
             ~/.platformio/.cache
             ~/.buildcache
+            build_output
           key: pio-${{ runner.os }}-${{ matrix.environment }}-${{ hashFiles('platformio.ini', 'extra_script.py') }}
           restore-keys: pio-${{ runner.os }}-${{ matrix.environment }}-${{ hashFiles('platformio.ini', 'extra_script.py') }}
       - name: Set up Python
