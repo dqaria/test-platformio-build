@@ -128,20 +128,28 @@ void setup()
     /* Lock the mutex due to the LVGL APIs are not thread-safe */
     lvgl_port_lock(-1);
 
+    // lv_img_dsc_t *my_img = create_indexed_1bit_image(
+    //     palette,
+    //     sizeof(palette),
+    //     (default_icon + 62),
+    //     48000,
+    //     800, //800, // 宽
+    //     480, //480  // 高,
+    //     true
+    // );
+
     lv_img_dsc_t *my_img = create_indexed_1bit_image(
         palette,
         sizeof(palette),
-        (default_icon + 62),
-        48000,
-        800, //800, // 宽
-        480, //480  // 高,
+        wifi_connect_qr,
+        2210,
+        130, //800, // 宽
+        130, //480  // 高,
         true
     );
 
     lv_obj_t *img = lv_img_create(lv_scr_act());
     lv_img_set_src(img, my_img);
-    lv_img_set_pivot(img, 800/2, 480/2);
-    // lv_img_set_angle(img, 10);
     lv_obj_align(img, LV_ALIGN_CENTER, 0, 0);
 
     /**
