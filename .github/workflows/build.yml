@@ -59,4 +59,4 @@ jobs:
         with:
           name: firmware-${{ matrix.environment }}
           path: |
-            .pio/build/*/firmware_*.bin
+            build_output/release/*.bin
