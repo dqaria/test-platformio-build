@@ -23,19 +23,19 @@ def _create_dirs(dirs=["map", "release", "firmware"]):
 def copy_merge_bins(firmware_src, env):
     flash_images = env.Flatten(env.get("FLASH_EXTRA_IMAGES", [])) + ["$ESP32_APP_OFFSET", APP_BIN]
     name = firmware_src.split(os.path.sep)[2]
-    flash_size = env.GetProjectOption("board_upload.flash_size")
+    # flash_size = env.GetProjectOption("board_upload.flash_size")
     board = env.BoardConfig()
     f_flash = board.get("build.f_flash", "40000000L")
     flash_freq = '40m'
     if (f_flash == '80000000L'):
         flash_freq = '80m'
     mcu = board.get("build.mcu", "esp32")
-    firmware_dst = "{}{}_{}_{}_0x0.bin".format(OUTPUT_DIR, mcu, name, flash_size)
+    firmware_dst = "{}{}_{}_{}_0x0.bin".format(OUTPUT_DIR, mcu, name)
     if os.path.isfile(firmware_dst):
         os.remove(firmware_dst)
     cmd = " ".join(
         ["$PYTHONEXE", "$OBJCOPY", '--chip', mcu, 'merge_bin', '--output', firmware_dst, '--flash_mode', 'dio',
-         '--flash_size', flash_size, '--flash_freq', flash_freq] + flash_images)
+        '--flash_freq', flash_freq] + flash_images)
     env.Execute(cmd)
     return firmware_dst
 
